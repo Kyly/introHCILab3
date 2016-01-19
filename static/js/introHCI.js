@@ -49,12 +49,29 @@ function projectClick(e)
     description.fadeToggle('slow');
 }
 
-function updateProject(e) {
+function updateProject(e)
+{
     var projectID = $('#project').val();
-    $(projectID).animate({
-                             width: $('#width').val()
-                         });
+    var width = $('#width').val();
+    if (width === "")
+    {
+        width = $(projectID).width();
+    }
+
+    $(projectID).animate(
+        {
+            width: width
+        }
+    );
 
     var newText = $('#description').val();
-    $(projectID + " .project-description").text(newText);
+    var description = $(projectID).find(".project-description");
+    if (description.length == 0)
+    {
+        $(projectID).append("<div class='project-description'><p>" + newText + "</p></div>");
+    }
+    else
+    {
+        $(projectID + " .project-description").text(newText);
+    }
 }
